@@ -1,0 +1,29 @@
+package SalesForce;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HFCLogin {
+	public static void main(String[] args) {
+	
+	
+	WebDriver driver = new ChromeDriver();
+	driver.get("https://gohfc--frandev.sandbox.my.salesforce.com/");
+	driver.manage().window().maximize();
+	driver.findElement(By.id("username")).sendKeys("narasimha.daggupati@gohfc.com.hfcprod.frandev");
+	driver.findElement(By.id("password")).sendKeys("RajuDaggupati#2001");
+	driver.findElement(By.id("Login")).click();
+
+	
+	//WebElement account= driver.findElement(By.xpath("//a[text()='Accounts']"));
+	//account.click();
+	
+	WebElement remaindLater= driver.findElement(By.xpath("//a[text()='Remind Me Later']"));
+	remaindLater.click();
+	
+	System.out.println("HFC User Logged In Successfully");
+
+}
+}
