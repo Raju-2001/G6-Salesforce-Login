@@ -1,0 +1,79 @@
+package SalesForce;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import java.util.Iterator; 
+import java.util.Set; 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class CommunityPortal {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://gohfc.okta.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.name("username")).sendKeys("acowner.sftest@advantaclean.com");
+		driver.findElement(By.name("password")).sendKeys("hfcWelcome26$");
+		driver.findElement(By.xpath("//input[@class='button button-primary']")).click();
+		
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement myElement1 = wait1.until(ExpectedConditions.elementToBeClickable(By.xpath(("//input[@type='submit']"))));
+				
+		myElement1.click();
+		
+		WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebElement myElement2 = wait2.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@aria-label='launch app The Source - UAT']")));
+		
+		myElement2.click();
+		System.out.println("The Community Portal is Logged in Successfully");
+	
+		String parent=driver.getWindowHandle();
+		Set<String>s=driver.getWindowHandles();
+		// Now iterate using Iterator
+		Iterator<String> I1= s.iterator();
+		while(I1.hasNext())
+		{
+		String child_window=I1.next();
+		if(!parent.equals(child_window))
+		{
+		driver.switchTo().window(child_window);
+		System.out.println(driver.switchTo().window(child_window).getTitle());
+		}
+		}
+		
+		driver.findElement(By.xpath("//button[text()='CREATE A CASE']")).click();
+		WebDriverWait wait3 = new WebDriverWait(driver, Duration.ofSeconds(40));
+		wait3.until(ExpectedConditions.elementToBeClickable(By.xpath(" //input[@class=' case-subject input']"))).sendKeys("Test");
+		driver.findElement(By.xpath("(//a[@role='combobox'])[1]")).click();
+		driver.findElement(By.xpath("(//a[@role='option'])[2]")).click();
+		driver.findElement(By.xpath("(//a[@role='combobox'])[2]")).click();
+		driver.findElement(By.xpath("(//a[@role='option'])[12]")).click();
+		driver.findElement(By.xpath("//textarea[@role='textbox']")).sendKeys("Testing");
+		driver.findElement(By.xpath("(//a[@role='combobox'])[3]")).click();
+		driver.findElement(By.xpath("(//a[@role='option'])[21]")).click();
+		driver.findElement(By.xpath("//button[text()='Submit']")).click();
+		
+		
+	        
+	        System.out.println("The Case Was Created SuccessFully");
+		
+		
+		
+	}//button[@data-aura-class='forceCommunityContactSupportButton']
+
+}
+	//button[text()='CREATE A CASE']
